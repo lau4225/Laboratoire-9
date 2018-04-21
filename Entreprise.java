@@ -1,9 +1,11 @@
+import java.awt.*;
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  * Created by BonLa1731834 on 2018-01-22.
  */
-public class Entreprise {
+public class Entreprise implements Serializable{
 
     private String nom;
     private Adresse adresse;
@@ -39,7 +41,9 @@ public class Entreprise {
 
     public void modifier(){
         String modif = "";
+        System.out.println();
         System.out.println("    Entreprise : ");
+        System.out.println();
         System.out.print("        Nom (" + nom + ") : ");
         modif = sc.nextLine().trim();
         if (modif.equals("")) {}

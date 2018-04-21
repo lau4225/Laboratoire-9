@@ -1,11 +1,13 @@
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 /**
  * Created by BonLa1731834 on 2018-01-22.
  */
-public class Contact {
+public class Contact implements Serializable {
 
     private int numero;
     private String prenom;
@@ -63,10 +65,10 @@ public class Contact {
 
         System.out.println();
         System.out.print("Prénom : ");
-        contact.prenom = sc.next().toLowerCase();
+        contact.prenom = Programme_Main.caractere(sc.next());
 
         System.out.print("Nom : ");
-        contact.nomFamille = sc.next();
+        contact.nomFamille = Programme_Main.caractere(sc.next());
 
         contact.setAdresse(Adresse.nouvAdresse());
 
@@ -77,7 +79,7 @@ public class Contact {
             System.out.println();
             System.out.print("Entrer un numéro de téléphone (o/n)? ");
             String repTel = "";
-            repTel = sc.next();
+            repTel = sc.next().toLowerCase();
 
 
             if (repTel.equals("o")) {
@@ -116,35 +118,70 @@ public class Contact {
 
 
     public void modifier(){
+
+        sc.nextLine();
         String modif = "";
         System.out.print("Prénom (" + prenom + ") : ");
-        sc.nextLine();
-        modif = sc.nextLine().trim();
+        modif = Programme_Main.caractere(sc.nextLine());
         if (modif.equals("")) {}
-        else {setPrenom(modif);}
+        else {
+            setPrenom(modif);
+        }
+
 
         System.out.println();
-        System.out.println();
         System.out.print("Nom (" + nomFamille + ") : ");
-        modif = sc.nextLine().trim();
+        modif = Programme_Main.caractere(sc.nextLine());
         if (modif.equals("")) {}
         else {setNomFamille(modif);}
 
         adresse.modifier();
+        sc.nextLine();
         occupation.modifier();
 
-        if (nbNum > 0) {
+        if (nbNum >= 0) {
 
             System.out.println("Téléphones : ");
 
             for (Telephone t : listNum) {
                 t.modifier();
             }
+
+            ajouNum();
         }
         else {
+            System.out.println();
             System.out.println("Ce contact n'a présentement aucun numéro de téléphone");
+
+            ajouNum();
         }
     }
+
+    public  void ajouNum(){
+        boolean ajoutNum = false;
+        while (ajoutNum == false) {
+            System.out.println();
+            System.out.print("Entrer un numéro de téléphone (o/n)? ");
+            String repTel = "";
+            repTel = sc.next().toLowerCase();
+
+
+            if (repTel.equals("o")) {
+
+                this.setNbNum(this.getNbNum()+1);
+                this.listNum.add(this.getNbNum(), Telephone.nouvTelephone());
+            }
+            else if (repTel.equals("n")) {
+                ajoutNum = true;
+            }
+            else
+            {
+                System.out.println("Entrez une réponse valide");
+            }
+
+        }
+    }
+
 
 
 

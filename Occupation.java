@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  * Created by BonLa1731834 on 2018-01-22.
  */
-public class Occupation {
+public class Occupation implements Serializable{
 
     private String poste;
     private Entreprise entreprise;
@@ -24,7 +25,7 @@ public class Occupation {
 
         System.out.println("Occupation : ");
         System.out.print("    Poste : ");
-        occupation.poste = sc.next();
+        occupation.poste = Programme_Main.caractere(sc.next());
 
         occupation.setEntreprise(Entreprise.nouvEntreprise());
 
@@ -38,13 +39,16 @@ public class Occupation {
     }
 
     public void modifier(){
+
         String modif = "";
         System.out.println();
         System.out.println("Occupation : ");
+        System.out.println();
         System.out.print("    Poste (" + poste + ") : ");
-        modif = sc.nextLine().trim();
+        modif = Programme_Main.caractere(sc.nextLine());
         if (modif.equals("")) {}
         else {setPoste(modif);}
         entreprise.modifier();
+
     }
 }
